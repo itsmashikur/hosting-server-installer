@@ -2,6 +2,9 @@
 
 #!/bin/bash
 
+# Yum Utils
+sudo yum install yum-utils -y
+
 # Install Apache
 yum install -y httpd
 
