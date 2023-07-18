@@ -43,25 +43,25 @@ cat > /etc/httpd/conf.d/whms.live.conf <<EOF
 </VirtualHost>
 EOF
 
-# Configure subdomain virtual host (host.whms.com)
-cat > /etc/httpd/conf.d/host.whms.com.conf <<EOF
+# Configure subdomain virtual host (host.whms.live)
+cat > /etc/httpd/conf.d/host.whms.live.conf <<EOF
 <VirtualHost *:80>
     ServerAdmin webmaster@whms.live
-    ServerName host.whms.com
-    DocumentRoot /var/www/html/host.whms.com
-    <Directory /var/www/html/host.whms.com>
+    ServerName host.whms.live
+    DocumentRoot /var/www/html/host.whms.live
+    <Directory /var/www/html/host.whms.live>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
     </Directory>
-    ErrorLog /var/log/httpd/host.whms.com-error.log
-    CustomLog /var/log/httpd/host.whms.com-access.log combined
+    ErrorLog /var/log/httpd/host.whms.live-error.log
+    CustomLog /var/log/httpd/host.whms.live-access.log combined
 </VirtualHost>
 EOF
 
 # Create directories for the domains
 mkdir -p /var/www/html/whms.live
-mkdir -p /var/www/html/host.whms.com
+mkdir -p /var/www/html/host.whms.live
 
 # Create index.php files with PHP info for both domains
 cat > /var/www/html/whms.live/index.php <<EOF
@@ -71,18 +71,18 @@ phpinfo();
 ?>
 EOF
 
-cat > /var/www/html/host.whms.com/index.php <<EOF
+cat > /var/www/html/host.whms.live/index.php <<EOF
 <?php
-echo "host.whms.com";
+echo "host.whms.live";
 phpinfo();
 ?>
 EOF
 
 # Set ownership and permissions
 chown -R apache:apache /var/www/html/whms.live
-chown -R apache:apache /var/www/html/host.whms.com
+chown -R apache:apache /var/www/html/host.whms.live
 chmod -R 755 /var/www/html/whms.live
-chmod -R 755 /var/www/html/host.whms.com
+chmod -R 755 /var/www/html/host.whms.live
 
 # Restart Apache service
 systemctl restart httpd
